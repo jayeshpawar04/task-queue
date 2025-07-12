@@ -51,4 +51,4 @@ app.post('/resume', async (req, res) => {
   res.json({ status: 'resumed' });
 });
 
-app.listen(4500, () => console.log('HTTP queue server running on port 4500'));
+app.listen(3000, () => console.log('HTTP queue server running on port 4500'));
