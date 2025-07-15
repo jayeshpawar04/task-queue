@@ -25,7 +25,7 @@ const buffer = Buffer.from(base64Body, "base64"); // decode back to Buffer
       port: process.env.REDIS_PORT,
       password: process.env.REDIS_PASSWORD,
     },
-    concurrency: 200,
+    concurrency: 1000,
     // Optional: concurrency, limiter, etc.
   }
 );
