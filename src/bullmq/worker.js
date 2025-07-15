@@ -18,7 +18,7 @@ const worker = new Worker(process.env.QUEUE_NAME, async (job) => {
     port: process.env.REDIS_PORT,
     password: process.env.REDIS_PASSWORD,
   },
-  concurrency: 50,
+  concurrency: 10,
   // Optional: concurrency, limiter, etc.
 });
 
