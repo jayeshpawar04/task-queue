@@ -5,8 +5,6 @@ const Arena = require('bull-arena');
 const app = express();
 const { Queue, FlowProducer } = require('bullmq');
 
-app.use(express.json()); // Middleware to parse JSON request bodies
-
 
 const arenaConfig = Arena(
   {
@@ -51,21 +49,6 @@ app.post('/pause', async (req, res) => {
 app.post('/resume', async (req, res) => {
   await queue.resume();
   res.json({ status: 'resumed' });
-});
-
-// Enqueue multiple jobs
-app.post('/enqueue-bulk', async (req, res) => {
-  const jobs = req.body; // Expecting an array of job objects: [{ name: 'taskName', data: { ... } }]
-  if (!Array.isArray(jobs) || jobs.length === 0) {
-    return res.status(400).json({ error: 'Request body must be a non-empty array of jobs.' });
-  }
-  try {
-    const addedJobs = await queue.addBulk(jobs);
-    res.json({ status: 'enqueued', jobIds: addedJobs.map(job => job.id) });
-  } catch (error) {
-    console.error('Error adding bulk jobs:', error);
-    res.status(500).json({ error: 'Failed to enqueue bulk jobs.' });
-  }
 });
 
 app.listen(3000, () => console.log('HTTP queue server running on port 4500'));
