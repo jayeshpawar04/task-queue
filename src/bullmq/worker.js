@@ -5,7 +5,8 @@ require('dotenv').config();
 const worker = new Worker(process.env.QUEUE_NAME, async (job) => {
   const { url, payload } = job.data;
   try {
-    const response = await axios.post(url, payload);
+    const { headers, body } = payload; // Extract headers and body from payload
+const response = await axios.post(url, body, { headers }); // Include headers in the request
     console.log('HTTP task completed:', response.data);
     return response.data; // Optional: store response as job result
   } catch (err) {
