@@ -2,7 +2,6 @@ const { Worker } = require("bullmq");
 const axios = require("axios");
 require("dotenv").config();
 
-console.log("Queue Name:", process.env.QUEUE_NAME); // Log the queue name
 const worker = new Worker(
   process.env.QUEUE_NAME,
   async (job) => {
